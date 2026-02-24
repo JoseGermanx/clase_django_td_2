@@ -11,6 +11,14 @@
     <h3>{{ post.title }}</h3>
     <p>{{ post.content }}</p>
     <small>{{ post.created_at }}</small>
+    <h3>Comentarios</h3>
+    {% for comment in post.comments.all  %}
+    <h4>{{ comment.author }}</h4>
+    <p>{{ comment.content }}</p>
+
+    {% endfor %}
+
+    <hr>
     {% endfor %}
 </body>
 </html>
