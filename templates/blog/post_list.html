@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+
+
+{% block title %}
+Blog
+{% endblock %}
+
+
+{% block content%}
+
+   <h1>Últimas entradas</h1>
+        <div class="mt-4">
+            {% for post in posts %}
+            <h3>
+                <a href="{% url 'post_detail' post.id %}" class="text-decoration-none">
+                      {{ post.title }}
+                </a>
+            </h3>
+            <p>{{ post.content|truncatewords:20 }}</p>
+            <small>{{ post.created_at }}</small>
+            {% endfor %}
+            <hr>
+        </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{post.title}}
+{% endblock %}
+
+{% block content%}
+
+<h2>{{post.title}}</h2>
+<p>{{post.content}}</p>
+<small>{{ post.created_at }}</small>
+<p><strong>{{post.author}}</strong></p>
+
+<h3>Comentarios</h3>
+{% for comment in post.comments.all %}
+<p><strong>{{comment.author}}</strong></p>
+<p>{{comment.content}}</p>
+{%empty %}
+<p>No hay comentarios</p>
+{% endfor %}
+
+<a href="{% url 'post_list' %}" class="btn btn-info">Volver</a>
+{% endblock %}
+
