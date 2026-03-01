@@ -7,18 +7,36 @@
 {% block content%}
 
 <h2>{{post.title}}</h2>
-<p>{{post.content}}</p>
 <small>{{ post.created_at }}</small>
-<p><strong>{{post.author}}</strong></p>
+<small>Autor: <strong>{{post.author}}</strong></small>
+<p>{{post.content}}</p>
+
 
 <h3>Comentarios</h3>
 {% for comment in post.comments.all %}
-<p><strong>{{comment.author}}</strong></p>
+<p><strong>{{comment.author}}</strong> <small>{{ comment.created_at }}</small></p>
 <p>{{comment.content}}</p>
+
+<hr>
 {%empty %}
-<p>No hay comentarios</p>
+<p>No hay comentarios, sé el primero.</p>
 {% endfor %}
 
-<a href="{% url 'post_list' %}" class="btn btn-info">Volver</a>
+<form method="POST" class="container mt-4">
+    <h4>Comentar:</h4>
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="author" class="form-label">Autor</label>
+        <input type="text" class="form-control" id="author" name="author" required>
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Comentario</label>
+        <textarea class="form-control" id="content" name="content" rows="3" required></textarea>
+    </div>
+  <button type="submit" class="btn btn-primary">
+    Agregar comentario</button>
+</form>
+
+<a href="{% url 'post_list' %}" class="btn btn-info mt-3">Volver</a>
 {% endblock %}
 

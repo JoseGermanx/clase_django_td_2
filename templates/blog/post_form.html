@@ -1,0 +1,23 @@
+
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Nuevo Post
+{% endblock %}
+
+{% block content%}
+<h2>Crear nuevo post</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="title" class="form-label">Título</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Contenido</label>
+        <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+    </div>
+  <button type="submit" class="btn btn-primary">Crear Post</button>
+</form>
+<a href="{% url 'post_list' %}" class="btn btn-info mt-3">Volver</a>
+{% endblock %}
