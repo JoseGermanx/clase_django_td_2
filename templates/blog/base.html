@@ -12,13 +12,13 @@
 <body>
     <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-    <span class="navbar-brand mb-0 h1">El Blog de Python</span>
-    <ul class="navbar-nav d-flex">
+    <a  href="{% url 'post_list'%}" class="navbar-brand mb-0 h1">El Blog de Python</a>
+    <ul class="d-flex">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Nuevo Post</a>
+          <a class="nav-link text-white active" aria-current="page" href="{% url 'post_create'%}">Nuevo Post</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link text-white" href="#">Login</a>
         </li>
         </ul>
   </div>

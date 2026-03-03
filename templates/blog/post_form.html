@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Publica un nuevo post
+{% endblock %}
+
+
+{% block content%}
+{% if messages %}
+    {% for message in messages%}
+       <div class="alert alert-success" role="alert">
+         {{message}}
+       </div>
+    {% endfor%}
+{% endif %}
+
+<form method="post" style="width: 66%;">
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+    <button type="submit" class="btn btn-info">Crear post</button>
+
+</form>
+
+{% endblock %}
