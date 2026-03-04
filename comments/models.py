@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from blog.models import Post
 
 # Create your models here.
@@ -11,7 +12,7 @@ class Comments(models.Model):
         on_delete=models.CASCADE,
         related_name='comments'
     )
-    author = models.CharField(max_length=100)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
