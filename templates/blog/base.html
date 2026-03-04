@@ -17,8 +17,18 @@
         <li class="nav-item">
           <a class="nav-link text-white active" aria-current="page" href="{% url 'post_create'%}">Nuevo Post</a>
         </li>
+        {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link text-white" href="#">Login</a>
+          <a class="nav-link text-white active" aria-current="page" href="{% url 'profile'%}">Mi perfil</a>
+        </li>
+        <li class="nav-item">
+          <form method="post" action="{% url 'logout'%}">{% csrf_token %}<button type="submit" class="btn btn-danger">Logout</button></form>
+        </li>
+          {% else %}
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'login'%}">Login</a>
+        </li>
+          {% endif %}
         </li>
         </ul>
   </div>

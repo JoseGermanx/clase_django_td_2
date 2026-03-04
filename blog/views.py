@@ -3,6 +3,7 @@ from .models import Post
 from .forms import PostForm
 from django.contrib import messages
 from comments.forms import CommentForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -10,6 +11,7 @@ def post_list(request):
     posts = Post.objects.all()
     return render(request, 'blog/post_list.html', { 'posts': posts }) 
 
+@login_required
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     if request.method == "POST":
@@ -24,6 +26,7 @@ def post_detail(request, post_id):
 
     return render(request, 'blog/post_detail.html', {'form': form, 'post': post})
 
+@login_required
 def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -37,3 +40,9 @@ def post_create(request):
         form = PostForm()
     
     return render(request, 'blog/post_form.html', {'form': form})
+
+
+@login_required
+def profile(request):
+    posts = Post.objects.all()
+    return render(request, 'blog/profile.html', {'posts': posts})

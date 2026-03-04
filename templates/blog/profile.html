@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Perfil de usuario {{ user.username }}
+{% endblock %}
+
+{% block content%}
+<h1>Bienvenido a tu perfil bloguero</h1>
+<h2>{{user.username}}</h2>
+
+<h3>Esta es la lista de tus post</h3>
+<ul>
+    {% for post in posts %}
+    <li>{{post.title}}</li>
+    {% empty %}
+    <li>No tienes ningún post creado</li>
+    {% endfor %}
+</ul>
+
+
+{% endblock %}
