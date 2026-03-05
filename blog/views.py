@@ -4,7 +4,8 @@ from .forms import PostForm
 from django.contrib import messages
 from comments.forms import CommentForm
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic import TemplateView
 # Create your views here.
 
 def post_list(request):
@@ -19,6 +20,7 @@ def post_detail(request, post_id):
         if form.is_valid():
             comment = form.save(commit=False) # creado parcialmente
             comment.post = post
+            comment.author = request.user
             comment.save() # confirma el registro en la BD
             return redirect('post_detail', post_id=post.id)
     else:
@@ -31,7 +33,9 @@ def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
             messages.success(request, "Post creado correctamente.")
             return redirect('post_create')
         else:
@@ -44,5 +48,11 @@ def post_create(request):
 
 @login_required
 def profile(request):
-    posts = Post.objects.all()
+    posts = Post.objects.filter(author_id=request.user)
     return render(request, 'blog/profile.html', {'posts': posts})
+
+
+class EditorView(PermissionRequiredMixin, TemplateView):
+    template_name='blog/editor.html'
+    permission_required='blog.change_post'
+    raise_exception = True
