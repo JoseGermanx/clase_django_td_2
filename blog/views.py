@@ -5,7 +5,7 @@ from django.contrib import messages
 from comments.forms import CommentForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 # Create your views here.
 
 def post_list(request):
@@ -52,7 +52,12 @@ def profile(request):
     return render(request, 'blog/profile.html', {'posts': posts})
 
 
-class EditorView(PermissionRequiredMixin, TemplateView):
+class EditorView(PermissionRequiredMixin, ListView):
+    model=Post
+    context_object_name = 'posts'
     template_name='blog/editor.html'
     permission_required='blog.change_post'
     raise_exception = True
+
+    def get_queryset(self):
+        return Post.objects.all()

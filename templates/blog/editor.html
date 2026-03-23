@@ -10,7 +10,7 @@ Perfil de usuario {{ user.username }} - Editor
 
 <h3>Esta es la lista de los post</h3>
 <ul>
-    {% for post in posts %}
+    {% for post in object_list %}
     <li>{{post.title}}</li>
     {% empty %}
     <li>No tienes ningún post creado</li>
