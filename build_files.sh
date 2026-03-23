@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Vercel now automatically installs dependencies from requirements.txt
-# using a tool called 'uv'. The 'pip install' command is no longer needed here.
+# Install dependencies, allowing installation in a managed environment
+pip install --break-system-packages -r requirements.txt
 
 # Collect static files
 python manage.py collectstatic --noinput
